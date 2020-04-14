@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://azzsds2008.github.io</id>
     <title>AnZz</title>
-    <updated>2020-04-14T12:34:09.422Z</updated>
+    <updated>2020-04-14T12:55:59.464Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://azzsds2008.github.io"/>
     <link rel="self" href="https://azzsds2008.github.io/atom.xml"/>
@@ -10,6 +10,46 @@
     <logo>https://azzsds2008.github.io/images/avatar.png</logo>
     <icon>https://azzsds2008.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, AnZz</rights>
+    <entry>
+        <title type="html"><![CDATA[Vue项目优化]]></title>
+        <id>https://azzsds2008.github.io/post/vue-xiang-mu-you-hua/</id>
+        <link href="https://azzsds2008.github.io/post/vue-xiang-mu-you-hua/">
+        </link>
+        <updated>2020-04-14T12:36:37.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="项目优化实现步骤">项目优化实现步骤：</h1>
+<ul>
+<li>生成打包报告，根据报告优化项目</li>
+<li>第三方库启用CDN</li>
+<li>Element-UI组件按需加载</li>
+<li>路由懒加载</li>
+<li>首页内容定制</li>
+</ul>
+<h2 id="添加进度条">添加进度条</h2>
+<p>给项目添加进度条效果，先打开项目控制台，打开依赖，安装nprogress<br>
+打开main.js，编写如下代码</p>
+<pre><code>//导入进度条插件
+import NProgress from 'nprogress'
+//导入进度条样式
+import 'nprogress/nprogress.css'
+.....
+//请求在到达服务器之前，先会调用use中的这个回调函数来添加请求头信息
+axios.interceptors.request.use(config =&gt; {
+  //当进入request拦截器，表示发送了请求，我们就开启进度条
+  NProgress.start()
+  //为请求头对象，添加token验证的Authorization字段
+  config.headers.Authorization = window.sessionStorage.getItem(&quot;token&quot;)
+  //必须返回config
+  return config
+})
+//在response拦截器中，隐藏进度条
+axios.interceptors.response.use(config =&gt;{
+  //当进入response拦截器，表示请求已经结束，我们就结束进度条
+  NProgress.done()
+  return config
+})
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://azzsds2008.github.io/post/hello-gridea/</id>
