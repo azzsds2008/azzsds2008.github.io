@@ -1,0 +1,434 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AnZz &#39; s Blog</title>
+<meta name="description" content="风袖翩翩此何处<br/>青林西北雨来时" />
+<link rel="shortcut icon" href="https://azzsds2008.github.io/favicon.ico?v=1586875369953">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://azzsds2008.github.io/styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://azzsds2008.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://azzsds2008.github.io/images/avatar.png?v=1586875369953" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">AnZz &#39; s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%AE%9A%E5%88%B6%E9%A6%96%E9%A1%B5%E5%86%85%E5%AE%B9">定制首页内容</a></li>
+<li><a href="#%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD">路由懒加载</a>
+<ul>
+<li><a href="#%E5%9C%A8babelconfigjs%E4%B8%AD%E5%A3%B0%E6%98%8E%E8%AF%A5%E6%8F%92%E4%BB%B6%E6%89%93%E5%BC%80babelconfigjs">在babel.config.js中声明该插件，打开babel.config.js</a></li>
+<li><a href="#%E5%B0%86%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%94%B9%E4%B8%BA%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD%E7%9A%84%E5%BD%A2%E5%BC%8F%E6%89%93%E5%BC%80routerjs%E6%9B%B4%E6%94%B9%E5%BC%95%E5%85%A5%E7%BB%84%E4%BB%B6%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B">将路由更改为按需加载的形式，打开router.js，更改引入组件代码如下：</a></li>
+</ul>
+</li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF">项目上线</a>
+<ul>
+<li><a href="#%E9%80%9A%E8%BF%87node%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8">通过node创建服务器</a></li>
+<li><a href="#%E5%BC%80%E5%90%AFgzip%E5%8E%8B%E7%BC%A9">开启gzip压缩</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AEhttps%E6%9C%8D%E5%8A%A1">配置https服务</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BD%BF%E7%94%A8pm2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8">使用pm2管理应用</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://gitee.com/azzsds" target="_blank">AnZz</a></div>
+    <a class="rss" href="https://azzsds2008.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Vue项目优化(二)</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-12-02 / 7 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://azzsds2008.github.io/post-images/vue-xiang-mu-you-hua-er.png" alt="">
+        
+        <div class="post-content yue">
+          <h2 id="定制首页内容">定制首页内容</h2>
+<p>开发环境的首页和发布环境的首页展示内容的形式有所不同<br>
+如开发环境中使用的是import加载第三方包，而发布环境则是使用CDN，那么首页也需根据环境不同来进行不同的实现<br>
+我们可以通过插件的方式来定制首页内容，打开vue.config.js，编写代码如下：</p>
+<pre><code class="language-javascript">module.exports = {
+    chainWebpack:config=&gt;{
+        config.when(process.env.NODE_ENV === 'production',config=&gt;{
+            ......
+            
+            //使用插件
+            config.plugin('html').tap(args=&gt;{
+                //添加参数isProd
+                args[0].isProd = true
+                return args
+            })
+        })
+
+        config.when(process.env.NODE_ENV === 'development',config=&gt;{
+            config.entry('app').clear().add('./src/main-dev.js')
+
+            //使用插件
+            config.plugin('html').tap(args=&gt;{
+                //添加参数isProd
+                args[0].isProd = false
+                return args
+            })
+        })
+    }
+}
+</code></pre>
+<p>然后在public/index.html中使用插件判断是否为发布环境并定制首页内容</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;&lt;%= BASE_URL %&gt;favicon.ico&quot;&gt;
+    &lt;title&gt;&lt;%= htmlWebpackPlugin.options.isProd ? '' : 'dev - ' %&gt;电商后台管理系统&lt;/title&gt;
+
+    &lt;% if(htmlWebpackPlugin.options.isProd){ %&gt;
+    &lt;!-- nprogress 的样式表文件 --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css&quot; /&gt;
+    ........
+    &lt;!-- element-ui 的 js 文件 --&gt;
+    &lt;script src=&quot;https://cdn.staticfile.org/element-ui/2.8.2/index.js&quot;&gt;&lt;/script&gt;
+    &lt;% } %&gt;
+  &lt;/head&gt;
+  .......
+</code></pre>
+<hr>
+<h2 id="路由懒加载">路由懒加载</h2>
+<p>当路由被访问时才加载对应的路由文件，就是路由懒加载。<br>
+路由懒加载实现步骤：<br>
+1.安装 @babel/plugin-syntax-dynamic-import<br>
+打开vue控制台，点击依赖-&gt;安装依赖-&gt;开发依赖-&gt;搜索@babel/plugin-syntax-dynamic-import<br>
+点击安装。</p>
+<h3 id="在babelconfigjs中声明该插件打开babelconfigjs">在babel.config.js中声明该插件，打开babel.config.js</h3>
+<pre><code class="language-javascript">//项目发布阶段需要用到的babel插件
+const productPlugins = []
+
+//判断是开发还是发布阶段
+if(process.env.NODE_ENV === 'production'){
+  //发布阶段
+  productPlugins.push(&quot;transform-remove-console&quot;)
+}
+
+module.exports = {
+  &quot;presets&quot;: [
+    &quot;@vue/app&quot;
+  ],
+  &quot;plugins&quot;: [
+    [
+      &quot;component&quot;,
+      {
+        &quot;libraryName&quot;: &quot;element-ui&quot;,
+        &quot;styleLibraryName&quot;: &quot;theme-chalk&quot;
+      }
+    ],
+    ...productPlugins,
+    //配置路由懒加载插件
+    &quot;@babel/plugin-syntax-dynamic-import&quot;
+  ]
+}
+</code></pre>
+<hr>
+<h3 id="将路由更改为按需加载的形式打开routerjs更改引入组件代码如下">将路由更改为按需加载的形式，打开router.js，更改引入组件代码如下：</h3>
+<pre><code class="language-javascript">import Vue from 'vue'
+import Router from 'vue-router'
+const Login = () =&gt; import(/* webpackChunkName:&quot;login_home_welcome&quot; */ './components/Login.vue')
+// import Login from './components/Login.vue'
+const Home = () =&gt; import(/* webpackChunkName:&quot;login_home_welcome&quot; */ './components/Home.vue')
+// import Home from './components/Home.vue'
+const Welcome = () =&gt; import(/* webpackChunkName:&quot;login_home_welcome&quot; */ './components/Welcome.vue')
+// import Welcome from './components/Welcome.vue'
+const Users = () =&gt; import(/* webpackChunkName:&quot;user&quot; */ './components/user/Users.vue')
+// import Users from './components/user/Users.vue'
+const Rights = () =&gt; import(/* webpackChunkName:&quot;power&quot; */ './components/power/Rights.vue')
+// import Rights from './components/power/Rights.vue'
+const Roles = () =&gt; import(/* webpackChunkName:&quot;power&quot; */ './components/power/Roles.vue')
+// import Roles from './components/power/Roles.vue'
+const Cate = () =&gt; import(/* webpackChunkName:&quot;goods&quot; */ './components/goods/Cate.vue')
+// import Cate from './components/goods/Cate.vue'
+const Params = () =&gt; import(/* webpackChunkName:&quot;goods&quot; */ './components/goods/Params.vue')
+// import Params from './components/goods/Params.vue'
+const GoodList = () =&gt; import(/* webpackChunkName:&quot;goods&quot; */ './components/goods/List.vue')
+// import GoodList from './components/goods/List.vue'
+const GoodAdd = () =&gt; import(/* webpackChunkName:&quot;goods&quot; */ './components/goods/Add.vue')
+// import GoodAdd from './components/goods/Add.vue'
+const Order = () =&gt; import(/* webpackChunkName:&quot;order&quot; */ './components/order/Order.vue')
+// import Order from './components/order/Order.vue'
+const Report = () =&gt; import(/* webpackChunkName:&quot;report&quot; */ './components/report/Report.vue')
+// import Report from './components/report/Report.vue'
+</code></pre>
+<h2 id="项目上线">项目上线</h2>
+<h3 id="通过node创建服务器">通过node创建服务器</h3>
+<p>在vue_shop同级创建一个文件夹vue_shop_server存放node服务器<br>
+使用终端打开vue_shop_server文件夹，输入命令 npm init -y<br>
+初始化包之后，输入命令 npm i express -S<br>
+打开vue_shop目录，复制dist文件夹，粘贴到vue_shop_server中<br>
+在vue_shop_server文件夹中创建app.js文件,编写代码如下：</p>
+<pre><code class="language-javascript">const express = require('express')
+
+const app = express()
+
+app.use(express.static('./dist'))
+
+app.listen(8998,()=&gt;{
+    console.log(&quot;server running at http://127.0.0.1:8998&quot;)
+})
+</code></pre>
+<p>然后再次在终端中输入  node app.js</p>
+<h3 id="开启gzip压缩">开启gzip压缩</h3>
+<p>打开vue_shop_server文件夹的终端，输入命令：npm i compression -D<br>
+打开app.js,编写代码：</p>
+<pre><code class="language-javascript">const express = require('express')
+
+const compression = require('compression')
+
+const app = express()
+
+app.use(compression())
+app.use(express.static('./dist'))
+
+app.listen(8998,()=&gt;{
+    console.log(&quot;server running at http://127.0.0.1:8998&quot;)
+})
+</code></pre>
+<h3 id="配置https服务">配置https服务</h3>
+<p>配置https服务一般是后台进行处理，前端开发人员了解即可。<br>
+首先，需要申请SSL证书，进入https://freessl.cn官网<br>
+在后台导入证书，打开今天资料/素材，复制素材中的两个文件到vue_shop_server中<br>
+打开app.js文件，编写代码导入证书，并开启https服务</p>
+<pre><code class="language-javascript">const express = require('express')
+const compression = require('compression')
+const https = require('https')
+const fs = require('fs')
+
+const app = express()
+//创建配置对象设置公钥和私钥
+const options = {
+    cert:fs.readFileSync('./full_chain.pem'),
+    key:fs.readFileSync('./private.key')
+}
+
+app.use(compression())
+app.use(express.static('./dist'))
+
+// app.listen(8998,()=&gt;{
+//     console.log(&quot;server running at http://127.0.0.1:8998&quot;)
+// })
+
+//启动https服务
+https.createServer(options,app).listen(443)
+</code></pre>
+<blockquote>
+<p>注意：因为我们使用的证书有问题，所以无法正常使用https服务</p>
+</blockquote>
+<hr>
+<h2 id="使用pm2管理应用">使用pm2管理应用</h2>
+<p>打开vue_shop_server文件夹的终端，输入命令：npm i pm2 -g<br>
+使用pm2启动项目，在终端中输入命令：pm2 start app.js --name 自定义名称<br>
+查看项目列表命令：pm2 ls<br>
+重启项目：pm2 restart 自定义名称<br>
+停止项目：pm2 stop 自定义名称<br>
+删除项目：pm2 delete 自定义名称</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://azzsds2008.github.io/tag/8n-dM5FDY/">
+            <span class="flex-auto">vue</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://azzsds2008.github.io/post/vuex/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  VueX
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://azzsds2008.github.io/post/vue-xiang-mu-you-hua/">
+                <h3 class="post-title">
+                  Vue项目优化(一)
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://azzsds2008.github.io/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

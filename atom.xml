@@ -1,33 +1,856 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://azzsds2008.github.io</id>
-    <title>AnZz</title>
-    <updated>2020-04-14T12:59:24.905Z</updated>
+    <title>AnZz &apos; s Blog</title>
+    <updated>2020-04-14T14:48:08.860Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://azzsds2008.github.io"/>
     <link rel="self" href="https://azzsds2008.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>风袖翩翩此何处&lt;br/&gt;青林西北雨来时</subtitle>
     <logo>https://azzsds2008.github.io/images/avatar.png</logo>
     <icon>https://azzsds2008.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, AnZz</rights>
+    <rights>All rights reserved 2020, AnZz &apos; s Blog</rights>
     <entry>
-        <title type="html"><![CDATA[Vue项目优化]]></title>
+        <title type="html"><![CDATA[VueX]]></title>
+        <id>https://azzsds2008.github.io/post/vuex/</id>
+        <link href="https://azzsds2008.github.io/post/vuex/">
+        </link>
+        <updated>2019-12-05T14:06:40.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="1vuex概述">1.Vuex概述</h3>
+<p>Vuex是实现组件全局状态（数据）管理的一种机制，可以方便的实现组件之间的数据共享<br>
+<a href="https://vuex.vuejs.org/zh/api/">vuex官方文档</a></p>
+<blockquote>
+<p>使用Vuex管理数据的好处：<br>
+-A.能够在vuex中集中管理共享的数据，便于开发和后期进行维护<br>
+-B.能够高效的实现组件之间的数据共享，提高开发效率<br>
+-C.存储在vuex中的数据是响应式的，当数据发生改变时，页面中的数据也会同步更新</p>
+</blockquote>
+<hr>
+<h3 id="2vuex的基本使用">2.Vuex的基本使用</h3>
+<p>创建带有vuex的vue项目，打开终端，输入命令：vue ui<br>
+当项目仪表盘打开之后，我们点击页面左上角的项目管理下拉列表，再点击Vue项目管理器<br>
+点击创建项目，如下图所示</p>
+<h4 id="第一步设置项目名称和包管理器">第一步，设置项目名称和包管理器</h4>
+<figure data-type="image" tabindex="1"><img src="https://azzsds2008.github.io/post-images/1586873298629.png" alt="" loading="lazy"></figure>
+<h4 id="第二步设置手动配置项目">第二步，设置手动配置项目</h4>
+<figure data-type="image" tabindex="2"><img src="https://azzsds2008.github.io/post-images/1586873309281.png" alt="" loading="lazy"></figure>
+<h4 id="第三步设置功能项">第三步，设置功能项</h4>
+<p><img src="https://azzsds2008.github.io/post-images/1586873314945.png" alt="" loading="lazy"><br>
+<img src="https://azzsds2008.github.io/post-images/1586873318994.png" alt="" loading="lazy"></p>
+<h4 id="第四步创建项目">第四步，创建项目</h4>
+<h2 id=""><img src="https://azzsds2008.github.io/post-images/1586873323073.png" alt="" loading="lazy"></h2>
+<h3 id="3使用vuex完成计数器案例">3.使用Vuex完成计数器案例</h3>
+<p>打开刚刚创建的vuex项目，找到src目录中的App.vue组件，将代码重新编写如下：</p>
+<pre><code class="language-html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;my-addition&gt;&lt;/my-addition&gt;
+    &lt;p&gt;----------------------------------------&lt;/p&gt;
+    &lt;my-subtraction&gt;&lt;/my-subtraction&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import Addition from './components/Addition.vue'
+import Subtraction from './components/Subtraction.vue'
+export default {
+  data() {
+    return {}
+  },
+  components: {
+    'my-subtraction': Subtraction,
+    'my-addition': Addition
+  }
+}
+&lt;/script&gt;
+&lt;style&gt;
+&lt;/style&gt;
+</code></pre>
+<hr>
+<p>在components文件夹中创建Addition.vue组件，代码如下：</p>
+<pre><code class="language-html">&lt;template&gt;
+    &lt;div&gt;
+        &lt;h3&gt;当前最新的count值为：&lt;/h3&gt;
+        &lt;button&gt;+1&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {}
+  }
+}
+&lt;/script&gt;
+&lt;style&gt;
+&lt;/style&gt;
+</code></pre>
+<p>在components文件夹中创建Subtraction.vue组件，代码如下：</p>
+<pre><code class="language-html">&lt;template&gt;
+    &lt;div&gt;
+        &lt;h3&gt;当前最新的count值为：&lt;/h3&gt;
+        &lt;button&gt;-1&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  data() {
+    return {}
+  }
+}
+&lt;/script&gt;
+&lt;style&gt;
+&lt;/style&gt;
+</code></pre>
+<p>最后在项目根目录(与src平级)中创建 .prettierrc 文件，编写代码如下：</p>
+<pre><code class="language-javascript">{
+    &quot;semi&quot;:false,
+    &quot;singleQuote&quot;:true
+}
+</code></pre>
+<hr>
+<h3 id="4vuex中的核心特性">4.Vuex中的核心特性</h3>
+<h4 id="astate">A.State</h4>
+<pre><code>State提供唯一的公共数据源，所有共享的数据都要统一放到Store中的State中存储
+例如，打开项目中的store.js文件，在State对象中可以添加我们要共享的数据，如：count:0
+
+在组件中访问State的方式：
+1).this.$store.state.全局数据名称  如：this.$store.state.count
+2).先按需导入mapState函数： import { mapState } from 'vuex'
+然后数据映射为计算属性： computed:{ ...mapState(['全局数据名称']) }
+</code></pre>
+<h4 id="bmutation">B.Mutation</h4>
+<p>Mutation用于修改变更$store中的数据<br>
+使用方式：<br>
+打开store.js文件，在mutations中添加代码如下</p>
+<pre><code class="language-javascript">mutations: {
+    add(state,step){
+      //第一个形参永远都是state也就是$state对象
+      //第二个形参是调用add时传递的参数
+      state.count+=step;
+    }
+  }
+</code></pre>
+<hr>
+<p>然后在Addition.vue中给按钮添加事件代码如下：</p>
+<pre><code class="language-javascript">&lt;button @click=&quot;Add&quot;&gt;+1&lt;/button&gt;
+
+methods:{
+  Add(){
+    //使用commit函数调用mutations中的对应函数，
+    //第一个参数就是我们要调用的mutations中的函数名
+    //第二个参数就是传递给add函数的参数
+    this.$store.commit('add',10)
+  }
+}
+</code></pre>
+<p>使用mutations的第二种方式：<br>
+import { mapMutations } from 'vuex'</p>
+<p>methods:{<br>
+...mapMutations(['add'])<br>
+}<br>
+如下：</p>
+<pre><code class="language-javascript">import { mapState,mapMutations } from 'vuex'
+
+export default {
+  data() {
+    return {}
+  },
+  methods:{
+      //获得mapMutations映射的sub函数
+      ...mapMutations(['sub']),
+      //当点击按钮时触发Sub函数
+      Sub(){
+          //调用sub函数完成对数据的操作
+          this.sub(10);
+      }
+  },
+  computed:{
+      ...mapState(['count'])
+      
+  }
+}
+</code></pre>
+<h4 id="caction">C.Action</h4>
+<p>在mutations中不能编写异步的代码，会导致vue调试器的显示出错。<br>
+在vuex中我们可以使用Action来执行异步操作。<br>
+操作步骤如下：<br>
+打开store.js文件，修改Action，如下：</p>
+<pre><code class="language-javascript">actions: {
+  addAsync(context,step){
+    setTimeout(()=&gt;{
+      context.commit('add',step);
+    },2000)
+  }
+}
+</code></pre>
+<p>然后在Addition.vue中给按钮添加事件代码如下：</p>
+<pre><code class="language-javascript">&lt;button @click=&quot;AddAsync&quot;&gt;...+1&lt;/button&gt;
+
+methods:{
+  AddAsync(){
+    this.$store.dispatch('addAsync',5)
+  }
+}
+</code></pre>
+<hr>
+<p>第二种方式：<br>
+import { mapActions } from 'vuex'</p>
+<p>methods:{<br>
+...mapMutations(['subAsync'])<br>
+}<br>
+如下：</p>
+<pre><code class="language-javascript">import { mapState,mapMutations,mapActions } from 'vuex'
+
+export default {
+  data() {
+    return {}
+  },
+  methods:{
+      //获得mapMutations映射的sub函数
+      ...mapMutations(['sub']),
+      //当点击按钮时触发Sub函数
+      Sub(){
+          //调用sub函数完成对数据的操作
+          this.sub(10);
+      },
+      //获得mapActions映射的addAsync函数
+      ...mapActions(['subAsync']),
+      asyncSub(){
+          this.subAsync(5);
+      }
+  },
+  computed:{
+      ...mapState(['count'])
+      
+  }
+}
+</code></pre>
+<h4 id="dgetter">D.Getter</h4>
+<p>Getter用于对Store中的数据进行加工处理形成新的数据<br>
+它只会包装Store中保存的数据，并不会修改Store中保存的数据，当Store中的数据发生变化时，Getter生成的内容也会随之变化<br>
+打开store.js文件，添加getters，如下：</p>
+<pre><code class="language-javascript">export default new Vuex.Store({
+  .......
+  getters:{
+    //添加了一个showNum的属性
+    showNum : state =&gt;{
+      return '最新的count值为：'+state.count;
+    }
+  }
+})
+</code></pre>
+<p>然后打开Addition.vue中，添加插值表达式使用getters</p>
+<pre><code class="language-html">&lt;h3&gt;{{$store.getters.showNum}}&lt;/h3&gt;
+</code></pre>
+<p>或者也可以在Addition.vue中，导入mapGetters，并将之映射为计算属性</p>
+<pre><code class="language-javascript">import { mapGetters } from 'vuex'
+computed:{
+  ...mapGetters(['showNum'])
+}
+</code></pre>
+<hr>
+<h3 id="5vuex案例">5.vuex案例</h3>
+<h4 id="a初始化案例">A.初始化案例</h4>
+<p>首先使用vue ui初始化一个使用vuex的案例<br>
+然后打开public文件夹，创建一个list.json文件，文件代码如下：</p>
+<pre><code class="language-javascript">[
+    {
+        &quot;id&quot;: 0,
+        &quot;info&quot;: &quot;Racing car sprays burning fuel into crowd.&quot;,
+        &quot;done&quot;: false
+    },
+    {
+        &quot;id&quot;: 1,
+        &quot;info&quot;: &quot;Japanese princess to wed commoner.&quot;,
+        &quot;done&quot;: false
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;info&quot;: &quot;Australian walks 100km after outback crash.&quot;,
+        &quot;done&quot;: false
+    },
+    {
+        &quot;id&quot;: 3,
+        &quot;info&quot;: &quot;Man charged over missing wedding girl.&quot;,
+        &quot;done&quot;: false
+    },
+    {
+        &quot;id&quot;: 4,
+        &quot;info&quot;: &quot;Los Angeles battles huge wildfires.&quot;,
+        &quot;done&quot;: false
+    }
+]
+</code></pre>
+<p>再接着，打开main.js,添加store.js的引入，如下：</p>
+<pre><code class="language-javascript">import Vue from 'vue'
+import App from './App.vue'
+import store from './store.js'
+
+// 1. 导入 ant-design-vue 组件库
+import Antd from 'ant-design-vue'
+// 2. 导入组件库的样式表
+import 'ant-design-vue/dist/antd.css'
+
+Vue.config.productionTip = false
+// 3. 安装组件库
+Vue.use(Antd)
+
+new Vue({
+  store,
+  render: h =&gt; h(App)
+}).$mount('#app')
+</code></pre>
+<p>再接着打开store.js，添加axios请求json文件获取数据的代码，如下：</p>
+<pre><code class="language-javascript">import Vue from 'vue'
+import Vuex from 'vuex'
+import axios from 'axios'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  state: {
+    //所有任务列表
+    list: [],
+    //文本输入框中的值
+    inputValue: 'AAA'
+  },
+  mutations: {
+    initList(state, list) {
+      state.list = list
+    },
+    setInputValue(state,value){
+      state.inputValue = value
+    }
+  },
+  actions: {
+    getList(context) {
+      axios.get('/list.json').then(({ data }) =&gt; {
+        console.log(data);
+        context.commit('initList', data)
+      })
+    }
+  }
+})
+</code></pre>
+<p>最后，代开App.vue文件，将store中的数据获取并展示：</p>
+<pre><code class="language-html">&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;a-input placeholder=&quot;请输入任务&quot; class=&quot;my_ipt&quot; :value=&quot;inputValue&quot; @change=&quot;handleInputChange&quot; /&gt;
+    &lt;a-button type=&quot;primary&quot;&gt;添加事项&lt;/a-button&gt;
+
+    &lt;a-list bordered :dataSource=&quot;list&quot; class=&quot;dt_list&quot;&gt;
+      &lt;a-list-item slot=&quot;renderItem&quot; slot-scope=&quot;item&quot;&gt;
+        &lt;!-- 复选框 --&gt;
+        &lt;a-checkbox :checked=&quot;item.done&quot;&gt;{{item.info}}&lt;/a-checkbox&gt;
+        &lt;!-- 删除链接 --&gt;
+        &lt;a slot=&quot;actions&quot;&gt;删除&lt;/a&gt;
+      &lt;/a-list-item&gt;
+
+      &lt;!-- footer区域 --&gt;
+      &lt;div slot=&quot;footer&quot; class=&quot;footer&quot;&gt;
+        &lt;!-- 未完成的任务个数 --&gt;
+        &lt;span&gt;0条剩余&lt;/span&gt;
+        &lt;!-- 操作按钮 --&gt;
+        &lt;a-button-group&gt;
+          &lt;a-button type=&quot;primary&quot;&gt;全部&lt;/a-button&gt;
+          &lt;a-button&gt;未完成&lt;/a-button&gt;
+          &lt;a-button&gt;已完成&lt;/a-button&gt;
+        &lt;/a-button-group&gt;
+        &lt;!-- 把已经完成的任务清空 --&gt;
+        &lt;a&gt;清除已完成&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/a-list&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import { mapState } from 'vuex'
+
+export default {
+  name: 'app',
+  data() {
+    return {
+      // list:[]
+    }
+  },
+  created(){
+    // console.log(this.$store);
+    this.$store.dispatch('getList')
+  },
+  methods:{
+    handleInputChange(e){
+      // console.log(e.target.value)
+      this.$store.commit('setInputValue',e.target.value)
+    }
+  },
+  computed:{
+    ...mapState(['list','inputValue'])
+  }
+}
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+#app {
+  padding: 10px;
+}
+
+.my_ipt {
+  width: 500px;
+  margin-right: 10px;
+}
+
+.dt_list {
+  width: 500px;
+  margin-top: 10px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+&lt;/style&gt;
+</code></pre>
+<h4 id="b完成添加事项">B.完成添加事项</h4>
+<p>首先，打开App.vue文件，给“添加事项”按钮绑定点击事件，编写处理函数</p>
+<pre><code class="language-javascript">//绑定事件
+&lt;a-button type=&quot;primary&quot; @click=&quot;addItemToList&quot;&gt;添加事项&lt;/a-button&gt;
+
+//编写事件处理函数
+methods:{
+    ......
+    addItemToList(){
+      //向列表中新增事项
+      if(this.inputValue.trim().length &lt;= 0){
+        return this.$message.warning('文本框内容不能为空')
+      }
+
+      this.$store.commit('addItem')
+    }
+  }
+</code></pre>
+<p>然后打开store.js编写addItem</p>
+<pre><code class="language-javascript">export default new Vuex.Store({
+  state: {
+    //所有任务列表
+    list: [],
+    //文本输入框中的值
+    inputValue: 'AAA',
+    //下一个id
+    nextId:5
+  },
+  mutations: {
+    ........
+    //添加列表项
+    addItem(state){
+      const obj = {
+        id :state.nextId,
+        info: state.inputValue.trim(),
+        done:false
+      }
+      //将创建好的事项添加到数组list中
+      state.list.push(obj)
+      //将nextId值自增
+      state.nextId++
+      state.inputValue = ''
+    }
+  }
+  ......
+})
+
+</code></pre>
+<h4 id="c完成删除事项">C.完成删除事项</h4>
+<p>首先，打开App.vue文件，给“删除”按钮绑定点击事件，编写处理函数</p>
+<pre><code class="language-javascript">//绑定事件
+&lt;a slot=&quot;actions&quot; @click=&quot;removeItemById(item.id)&quot;&gt;删除&lt;/a&gt;
+
+//编写事件处理函数
+methods:{
+    ......
+    removeItemById(id){
+      //根据id删除事项
+      this.$store.commit('removeItem',id)
+    }
+  }
+</code></pre>
+<p>然后打开store.js编写addItem</p>
+<pre><code class="language-javascript">export default new Vuex.Store({
+  ......
+  mutations: {
+    ........
+    removeItem(state,id){
+      //根据id删除事项数据
+      const index = state.list.findIndex( x =&gt; x.id === id )
+      // console.log(index);
+      if(index != -1) state.list.splice(index,1);
+    }
+  }
+  ......
+})
+</code></pre>
+<hr>
+<h4 id="d完成选中状态的改变">D.完成选中状态的改变</h4>
+<p>首先，打开App.vue文件，给“复选”按钮绑定点击事件，编写处理函数</p>
+<pre><code class="language-javascript">//绑定事件
+&lt;a-checkbox :checked=&quot;item.done&quot; @change=&quot;cbStateChanged(item.id,$event)&quot;&gt;{{item.info}}&lt;/a-checkbox&gt;
+
+//编写事件处理函数
+methods:{
+    ......
+    cbStateChanged(id,e){
+      //复选框状态改变时触发
+      const param = {
+        id:id,
+        status:e.target.checked
+      }
+
+      //根据id更改事项状态
+      this.$store.commit('changeStatus',param)
+    }
+  }
+</code></pre>
+<hr>
+<p>然后打开store.js编写addItem</p>
+<pre><code class="language-javascript">export default new Vuex.Store({
+  ......
+  mutations: {
+    ........
+    changeStatus(state,param){
+      //根据id改变对应事项的状态
+      const index = state.list.findIndex( x =&gt; x.id === param.id )
+      if(index != -1) state.list[index].done = param.status
+    }
+  }
+  ......
+})
+</code></pre>
+<h4 id="e剩余项统计">E.剩余项统计</h4>
+<p>打开store.js，添加getters完成剩余项统计</p>
+<pre><code class="language-javascript">getters:{
+  unDoneLength(state){
+    const temp = state.list.filter( x =&gt; x.done === false )
+    console.log(temp)
+    return temp.length
+  }
+}
+</code></pre>
+<hr>
+<p>打开App.vue，使用getters展示剩余项</p>
+<pre><code class="language-javascript">//使用映射好的计算属性展示剩余项
+&lt;!-- 未完成的任务个数 --&gt;
+&lt;span&gt;{{unDoneLength}}条剩余&lt;/span&gt;
+
+//导入getters
+import { mapState,mapGetters } from 'vuex'
+//映射
+computed:{
+  ...mapState(['list','inputValue']),
+  ...mapGetters(['unDoneLength'])
+}
+</code></pre>
+<hr>
+<h4 id="f清除完成事项">F.清除完成事项</h4>
+<p>首先，打开App.vue文件，给“清除已完成”按钮绑定点击事件，编写处理函数</p>
+<pre><code class="language-javascript">&lt;!-- 把已经完成的任务清空 --&gt;
+&lt;a @click=&quot;clean&quot;&gt;清除已完成&lt;/a&gt;
+
+//编写事件处理函数
+methods:{
+  ......
+  clean(){
+    //清除已经完成的事项
+    this.$store.commit('cleanDone')
+  }
+}
+</code></pre>
+<hr>
+<p>然后打开store.js编写addItem</p>
+<pre><code class="language-javascript">export default new Vuex.Store({
+  ......
+  mutations: {
+    ........
+    cleanDone(state){
+      state.list = state.list.filter( x =&gt; x.done === false )
+    }
+  }
+  ......
+})
+</code></pre>
+<hr>
+<h4 id="g点击选项卡切换事项">G.点击选项卡切换事项</h4>
+<p>打开App.vue，给“全部”，“未完成”，“已完成”三个选项卡绑定点击事件，编写处理函数<br>
+并将列表数据来源更改为一个getters。</p>
+<pre><code class="language-html">&lt;a-list bordered :dataSource=&quot;infoList&quot; class=&quot;dt_list&quot;&gt;
+  ......
+  &lt;!-- 操作按钮 --&gt;
+  &lt;a-button-group&gt;
+    &lt;a-button :type=&quot;viewKey ==='all'?'primary':'default'&quot; @click=&quot;changeList('all')&quot;&gt;全部&lt;/a-button&gt;
+    &lt;a-button :type=&quot;viewKey ==='undone'?'primary':'default'&quot; @click=&quot;changeList('undone')&quot;&gt;未完成&lt;/a-button&gt;
+    &lt;a-button :type=&quot;viewKey ==='done'?'primary':'default'&quot; @click=&quot;changeList('done')&quot;&gt;已完成&lt;/a-button&gt;
+  &lt;/a-button-group&gt;
+  ......
+&lt;/a-list&gt;
+
+//编写事件处理函数以及映射计算属性
+methods:{
+  ......
+  changeList( key ){
+    //点击“全部”，“已完成”，“未完成”时触发
+    this.$store.commit('changeKey',key)
+  }
+},
+computed:{
+  ...mapState(['list','inputValue','viewKey']),
+  ...mapGetters(['unDoneLength','infoList'])
+}
+</code></pre>
+<hr>
+<p>打开store.js，添加getters，mutations，state</p>
+<pre><code class="language-javascript">export default new Vuex.Store({
+  state: {
+    ......
+    //保存默认的选项卡值
+    viewKey:'all'
+  },
+  mutations: {
+    ......
+    changeKey(state,key){
+      //当用户点击“全部”，“已完成”，“未完成”选项卡时触发
+      state.viewKey = key
+    }
+  },
+  ......
+  getters:{
+    .......
+    infoList(state){
+      if(state.viewKey === 'all'){
+        return state.list
+      }
+      if(state.viewKey === 'undone'){
+        return state.list.filter( x =&gt; x.done === false )
+      }
+      if(state.viewKey === 'done'){
+        return state.list.filter( x =&gt; x.done === true )
+      }
+    }
+  }
+})
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Vue项目优化(二)]]></title>
+        <id>https://azzsds2008.github.io/post/vue-xiang-mu-you-hua-er/</id>
+        <link href="https://azzsds2008.github.io/post/vue-xiang-mu-you-hua-er/">
+        </link>
+        <updated>2019-12-02T13:55:18.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="定制首页内容">定制首页内容</h2>
+<p>开发环境的首页和发布环境的首页展示内容的形式有所不同<br>
+如开发环境中使用的是import加载第三方包，而发布环境则是使用CDN，那么首页也需根据环境不同来进行不同的实现<br>
+我们可以通过插件的方式来定制首页内容，打开vue.config.js，编写代码如下：</p>
+<pre><code class="language-javascript">module.exports = {
+    chainWebpack:config=&gt;{
+        config.when(process.env.NODE_ENV === 'production',config=&gt;{
+            ......
+            
+            //使用插件
+            config.plugin('html').tap(args=&gt;{
+                //添加参数isProd
+                args[0].isProd = true
+                return args
+            })
+        })
+
+        config.when(process.env.NODE_ENV === 'development',config=&gt;{
+            config.entry('app').clear().add('./src/main-dev.js')
+
+            //使用插件
+            config.plugin('html').tap(args=&gt;{
+                //添加参数isProd
+                args[0].isProd = false
+                return args
+            })
+        })
+    }
+}
+</code></pre>
+<p>然后在public/index.html中使用插件判断是否为发布环境并定制首页内容</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;&lt;%= BASE_URL %&gt;favicon.ico&quot;&gt;
+    &lt;title&gt;&lt;%= htmlWebpackPlugin.options.isProd ? '' : 'dev - ' %&gt;电商后台管理系统&lt;/title&gt;
+
+    &lt;% if(htmlWebpackPlugin.options.isProd){ %&gt;
+    &lt;!-- nprogress 的样式表文件 --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css&quot; /&gt;
+    ........
+    &lt;!-- element-ui 的 js 文件 --&gt;
+    &lt;script src=&quot;https://cdn.staticfile.org/element-ui/2.8.2/index.js&quot;&gt;&lt;/script&gt;
+    &lt;% } %&gt;
+  &lt;/head&gt;
+  .......
+</code></pre>
+<hr>
+<h2 id="路由懒加载">路由懒加载</h2>
+<p>当路由被访问时才加载对应的路由文件，就是路由懒加载。<br>
+路由懒加载实现步骤：<br>
+1.安装 @babel/plugin-syntax-dynamic-import<br>
+打开vue控制台，点击依赖-&gt;安装依赖-&gt;开发依赖-&gt;搜索@babel/plugin-syntax-dynamic-import<br>
+点击安装。</p>
+<h3 id="在babelconfigjs中声明该插件打开babelconfigjs">在babel.config.js中声明该插件，打开babel.config.js</h3>
+<pre><code class="language-javascript">//项目发布阶段需要用到的babel插件
+const productPlugins = []
+
+//判断是开发还是发布阶段
+if(process.env.NODE_ENV === 'production'){
+  //发布阶段
+  productPlugins.push(&quot;transform-remove-console&quot;)
+}
+
+module.exports = {
+  &quot;presets&quot;: [
+    &quot;@vue/app&quot;
+  ],
+  &quot;plugins&quot;: [
+    [
+      &quot;component&quot;,
+      {
+        &quot;libraryName&quot;: &quot;element-ui&quot;,
+        &quot;styleLibraryName&quot;: &quot;theme-chalk&quot;
+      }
+    ],
+    ...productPlugins,
+    //配置路由懒加载插件
+    &quot;@babel/plugin-syntax-dynamic-import&quot;
+  ]
+}
+</code></pre>
+<hr>
+<h3 id="将路由更改为按需加载的形式打开routerjs更改引入组件代码如下">将路由更改为按需加载的形式，打开router.js，更改引入组件代码如下：</h3>
+<pre><code class="language-javascript">import Vue from 'vue'
+import Router from 'vue-router'
+const Login = () =&gt; import(/* webpackChunkName:&quot;login_home_welcome&quot; */ './components/Login.vue')
+// import Login from './components/Login.vue'
+const Home = () =&gt; import(/* webpackChunkName:&quot;login_home_welcome&quot; */ './components/Home.vue')
+// import Home from './components/Home.vue'
+const Welcome = () =&gt; import(/* webpackChunkName:&quot;login_home_welcome&quot; */ './components/Welcome.vue')
+// import Welcome from './components/Welcome.vue'
+const Users = () =&gt; import(/* webpackChunkName:&quot;user&quot; */ './components/user/Users.vue')
+// import Users from './components/user/Users.vue'
+const Rights = () =&gt; import(/* webpackChunkName:&quot;power&quot; */ './components/power/Rights.vue')
+// import Rights from './components/power/Rights.vue'
+const Roles = () =&gt; import(/* webpackChunkName:&quot;power&quot; */ './components/power/Roles.vue')
+// import Roles from './components/power/Roles.vue'
+const Cate = () =&gt; import(/* webpackChunkName:&quot;goods&quot; */ './components/goods/Cate.vue')
+// import Cate from './components/goods/Cate.vue'
+const Params = () =&gt; import(/* webpackChunkName:&quot;goods&quot; */ './components/goods/Params.vue')
+// import Params from './components/goods/Params.vue'
+const GoodList = () =&gt; import(/* webpackChunkName:&quot;goods&quot; */ './components/goods/List.vue')
+// import GoodList from './components/goods/List.vue'
+const GoodAdd = () =&gt; import(/* webpackChunkName:&quot;goods&quot; */ './components/goods/Add.vue')
+// import GoodAdd from './components/goods/Add.vue'
+const Order = () =&gt; import(/* webpackChunkName:&quot;order&quot; */ './components/order/Order.vue')
+// import Order from './components/order/Order.vue'
+const Report = () =&gt; import(/* webpackChunkName:&quot;report&quot; */ './components/report/Report.vue')
+// import Report from './components/report/Report.vue'
+</code></pre>
+<h2 id="项目上线">项目上线</h2>
+<h3 id="通过node创建服务器">通过node创建服务器</h3>
+<p>在vue_shop同级创建一个文件夹vue_shop_server存放node服务器<br>
+使用终端打开vue_shop_server文件夹，输入命令 npm init -y<br>
+初始化包之后，输入命令 npm i express -S<br>
+打开vue_shop目录，复制dist文件夹，粘贴到vue_shop_server中<br>
+在vue_shop_server文件夹中创建app.js文件,编写代码如下：</p>
+<pre><code class="language-javascript">const express = require('express')
+
+const app = express()
+
+app.use(express.static('./dist'))
+
+app.listen(8998,()=&gt;{
+    console.log(&quot;server running at http://127.0.0.1:8998&quot;)
+})
+</code></pre>
+<p>然后再次在终端中输入  node app.js</p>
+<h3 id="开启gzip压缩">开启gzip压缩</h3>
+<p>打开vue_shop_server文件夹的终端，输入命令：npm i compression -D<br>
+打开app.js,编写代码：</p>
+<pre><code class="language-javascript">const express = require('express')
+
+const compression = require('compression')
+
+const app = express()
+
+app.use(compression())
+app.use(express.static('./dist'))
+
+app.listen(8998,()=&gt;{
+    console.log(&quot;server running at http://127.0.0.1:8998&quot;)
+})
+</code></pre>
+<h3 id="配置https服务">配置https服务</h3>
+<p>配置https服务一般是后台进行处理，前端开发人员了解即可。<br>
+首先，需要申请SSL证书，进入https://freessl.cn官网<br>
+在后台导入证书，打开今天资料/素材，复制素材中的两个文件到vue_shop_server中<br>
+打开app.js文件，编写代码导入证书，并开启https服务</p>
+<pre><code class="language-javascript">const express = require('express')
+const compression = require('compression')
+const https = require('https')
+const fs = require('fs')
+
+const app = express()
+//创建配置对象设置公钥和私钥
+const options = {
+    cert:fs.readFileSync('./full_chain.pem'),
+    key:fs.readFileSync('./private.key')
+}
+
+app.use(compression())
+app.use(express.static('./dist'))
+
+// app.listen(8998,()=&gt;{
+//     console.log(&quot;server running at http://127.0.0.1:8998&quot;)
+// })
+
+//启动https服务
+https.createServer(options,app).listen(443)
+</code></pre>
+<blockquote>
+<p>注意：因为我们使用的证书有问题，所以无法正常使用https服务</p>
+</blockquote>
+<hr>
+<h2 id="使用pm2管理应用">使用pm2管理应用</h2>
+<p>打开vue_shop_server文件夹的终端，输入命令：npm i pm2 -g<br>
+使用pm2启动项目，在终端中输入命令：pm2 start app.js --name 自定义名称<br>
+查看项目列表命令：pm2 ls<br>
+重启项目：pm2 restart 自定义名称<br>
+停止项目：pm2 stop 自定义名称<br>
+删除项目：pm2 delete 自定义名称</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Vue项目优化(一)]]></title>
         <id>https://azzsds2008.github.io/post/vue-xiang-mu-you-hua/</id>
         <link href="https://azzsds2008.github.io/post/vue-xiang-mu-you-hua/">
         </link>
-        <updated>2020-04-14T12:36:37.000Z</updated>
+        <updated>2019-12-01T12:36:37.000Z</updated>
         <content type="html"><![CDATA[<h1 id="项目优化实现步骤">项目优化实现步骤：</h1>
 <ul>
 <li>生成打包报告，根据报告优化项目</li>
 <li>第三方库启用CDN</li>
 <li>Element-UI组件按需加载</li>
 <li>路由懒加载</li>
-<li>首页内容定制</li>
+<li>
+<h2 id="首页内容定制">首页内容定制</h2>
+</li>
 </ul>
 <h2 id="添加进度条">添加进度条</h2>
-<p>给项目添加进度条效果，先打开项目控制台，打开依赖，安装nprogress<br>
+<p>给项目添加进度条效果，先打开项目控制台，打开依赖，安装<strong>nprogress</strong><br>
 打开main.js，编写如下代码</p>
-<pre><code>//导入进度条插件
+<pre><code class="language-javascript">//导入进度条插件
 import NProgress from 'nprogress'
 //导入进度条样式
 import 'nprogress/nprogress.css'
@@ -48,38 +871,214 @@ axios.interceptors.response.use(config =&gt;{
   return config
 })
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://azzsds2008.github.io/post/hello-gridea/</id>
-        <link href="https://azzsds2008.github.io/post/hello-gridea/">
-        </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+<hr>
+<h2 id="build阶段移除所有的console">build阶段移除所有的console</h2>
+<p>安装一个插件（babel-plugin-transform-remove-console）在项目build阶段移除所有的console信息<br>
+打开项目控制台，点击依赖-&gt;开发依赖，输入babel-plugin-transform-remove-console，安装<br>
+打开babel.config.js，编辑代码如下：</p>
+<pre><code class="language-javascript">//项目发布阶段需要用到的babel插件
+const productPlugins = []
+
+//判断是开发还是发布阶段
+if(process.env.NODE_ENV === 'production'){
+  //发布阶段
+  productPlugins.push(&quot;transform-remove-console&quot;)
+}
+
+module.exports = {
+  &quot;presets&quot;: [
+    &quot;@vue/app&quot;
+  ],
+  &quot;plugins&quot;: [
+    [
+      &quot;component&quot;,
+      {
+        &quot;libraryName&quot;: &quot;element-ui&quot;,
+        &quot;styleLibraryName&quot;: &quot;theme-chalk&quot;
+      }
+    ],
+    ...productPlugins
+  ]
+}
+</code></pre>
+<hr>
+<h2 id="生成打包报告">生成打包报告</h2>
+<ul>
+<li>命令行形式生成打包报告<br>
+vue-cli-service build --report</li>
+<li>在vue控制台生成打包报告<br>
+点击“任务”=&gt;“build”=&gt;“运行”<br>
+运行完毕之后点击右侧“分析”，“控制台”面板查看报告<br>
+<img src="https://azzsds2008.github.io/post-images/1586871118025.png" alt="" loading="lazy"></li>
+</ul>
+<hr>
+<h2 id="修改webpack的默认配置">修改webpack的默认配置</h2>
+<p>默认情况下，vue-cli 3.0生成的项目，隐藏了webpack配置项，如果我们需要配置webpack<br>
+需要通过vue.config.js来配置。<br>
+在项目根目录中创建vue.config.js文件，</p>
+<pre><code class="language-javascript">module.exports = {
+    chainWebpack:config=&gt;{
+        //发布模式
+        config.when(process.env.NODE_ENV === 'production',config=&gt;{
+            //entry找到默认的打包入口，调用clear则是删除默认的打包入口
+            //add添加新的打包入口
+            config.entry('app').clear().add('./src/main-prod.js')
+        })
+        //开发模式
+        config.when(process.env.NODE_ENV === 'development',config=&gt;{
+            config.entry('app').clear().add('./src/main-dev.js')
+        })
+    }
+}
+</code></pre>
+<blockquote>
+<p>补充：<br>
+chainWebpack可以通过链式编程的形式，修改webpack配置<br>
+configureWebpack可以通过操作对象的形式，修改webpack配置</p>
+</blockquote>
+<hr>
+<h2 id="加载外部cdn">加载外部CDN</h2>
+<p>默认情况下，依赖项的所有第三方包都会被打包到js/chunk-vendors.******.js文件中，导致该js文件过大<br>
+那么我们可以通过externals排除这些包，使它们不被打包到js/chunk-vendors.******.js文件中</p>
+<pre><code class="language-javascript">module.exports = {
+    chainWebpack:config=&gt;{
+        //发布模式
+        config.when(process.env.NODE_ENV === 'production',config=&gt;{
+            //entry找到默认的打包入口，调用clear则是删除默认的打包入口
+            //add添加新的打包入口
+            config.entry('app').clear().add('./src/main-prod.js')
+
+            //使用externals设置排除项
+            config.set('externals',{
+                vue:'Vue',
+                'vue-router':'VueRouter',
+                axios:'axios',
+                lodash:'_',
+                echarts:'echarts',
+                nprogress:'NProgress',
+                'vue-quill-editor':'VueQuillEditor'
+            })
+        })
+        //开发模式
+        config.when(process.env.NODE_ENV === 'development',config=&gt;{
+            config.entry('app').clear().add('./src/main-dev.js')
+        })
+    }
+}
+</code></pre>
+<hr>
+<p>设置好排除之后，为了使我们可以使用vue，axios等内容，我们需要加载外部CDN的形式解决引入依赖项。<br>
+打开开发入口文件main-prod.js,删除掉默认的引入代码</p>
+<pre><code class="language-javascript">import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+// import './plugins/element.js'
+//导入字体图标
+import './assets/fonts/iconfont.css'
+//导入全局样式
+import './assets/css/global.css'
+//导入第三方组件vue-table-with-tree-grid
+import TreeTable from 'vue-table-with-tree-grid'
+//导入进度条插件
+import NProgress from 'nprogress'
+//导入进度条样式
+// import 'nprogress/nprogress.css'
+// //导入axios
+import axios from 'axios'
+// //导入vue-quill-editor（富文本编辑器）
+import VueQuillEditor from 'vue-quill-editor'
+// //导入vue-quill-editor的样式
+// import 'quill/dist/quill.core.css'
+// import 'quill/dist/quill.snow.css'
+// import 'quill/dist/quill.bubble.css'
+
+axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
+//请求在到达服务器之前，先会调用use中的这个回调函数来添加请求头信息
+axios.interceptors.request.use(config =&gt; {
+  //当进入request拦截器，表示发送了请求，我们就开启进度条
+  NProgress.start()
+  //为请求头对象，添加token验证的Authorization字段
+  config.headers.Authorization = window.sessionStorage.getItem(&quot;token&quot;)
+  //必须返回config
+  return config
+})
+//在response拦截器中，隐藏进度条
+axios.interceptors.response.use(config =&gt;{
+  //当进入response拦截器，表示请求已经结束，我们就结束进度条
+  NProgress.done()
+  return config
+})
+Vue.prototype.$http = axios
+
+Vue.config.productionTip = false
+
+//全局注册组件
+Vue.component('tree-table', TreeTable)
+//全局注册富文本组件
+Vue.use(VueQuillEditor)
+
+//创建过滤器将秒数过滤为年月日，时分秒
+Vue.filter('dateFormat',function(originVal){
+  const dt = new Date(originVal)
+  const y = dt.getFullYear()
+  const m = (dt.getMonth()+1+'').padStart(2,'0')
+  const d = (dt.getDate()+'').padStart(2,'0')
+
+  const hh = (dt.getHours()+'').padStart(2,'0')
+  const mm = (dt.getMinutes()+'').padStart(2,'0')
+  const ss = (dt.getSeconds()+'').padStart(2,'0')
+
+  return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+})
+
+new Vue({
+  router,
+  render: h =&gt; h(App)
+}).$mount('#app')
+</code></pre>
+<hr>
+<p>然后打开public/index.html添加外部cdn引入代码</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;&lt;%= BASE_URL %&gt;favicon.ico&quot;&gt;
+    &lt;title&gt;电商后台管理系统&lt;/title&gt;
+
+    &lt;!-- nprogress 的样式表文件 --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css&quot; /&gt;
+    &lt;!-- 富文本编辑器 的样式表文件 --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.staticfile.org/quill/1.3.4/quill.core.min.css&quot; /&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.staticfile.org/quill/1.3.4/quill.snow.min.css&quot; /&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.staticfile.org/quill/1.3.4/quill.bubble.min.css&quot; /&gt;
+    &lt;!-- element-ui 的样式表文件 --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.staticfile.org/element-ui/2.8.2/theme-chalk/index.css&quot; /&gt;
+
+    &lt;script src=&quot;https://cdn.staticfile.org/vue/2.5.22/vue.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.staticfile.org/vue-router/3.0.1/vue-router.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.staticfile.org/axios/0.18.0/axios.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.staticfile.org/lodash.js/4.17.11/lodash.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.staticfile.org/echarts/4.1.0/echarts.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- 富文本编辑器的 js 文件 --&gt;
+    &lt;script src=&quot;https://cdn.staticfile.org/quill/1.3.4/quill.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue-quill-editor@3.0.4/dist/vue-quill-editor.js&quot;&gt;&lt;/script&gt;
+
+    &lt;!-- element-ui 的 js 文件 --&gt;
+    &lt;script src=&quot;https://cdn.staticfile.org/element-ui/2.8.2/index.js&quot;&gt;&lt;/script&gt;
+
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;noscript&gt;
+      &lt;strong&gt;We're sorry but vue_shop doesn't work properly without JavaScript enabled. Please enable it to continue.&lt;/strong&gt;
+    &lt;/noscript&gt;
+    &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+    &lt;!-- built files will be auto injected --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 ]]></content>
     </entry>
 </feed>

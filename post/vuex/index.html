@@ -1,0 +1,880 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AnZz &#39; s Blog</title>
+<meta name="description" content="风袖翩翩此何处<br/>青林西北雨来时" />
+<link rel="shortcut icon" href="https://azzsds2008.github.io/favicon.ico?v=1586875369953">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://azzsds2008.github.io/styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://azzsds2008.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://azzsds2008.github.io/images/avatar.png?v=1586875369953" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">AnZz &#39; s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1vuex%E6%A6%82%E8%BF%B0">1.Vuex概述</a></li>
+<li><a href="#2vuex%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">2.Vuex的基本使用</a>
+<ul>
+<li><a href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%E5%92%8C%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8">第一步，设置项目名称和包管理器</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%E8%AE%BE%E7%BD%AE%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE">第二步，设置手动配置项目</a></li>
+<li><a href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%E8%AE%BE%E7%BD%AE%E5%8A%9F%E8%83%BD%E9%A1%B9">第三步，设置功能项</a></li>
+<li><a href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE">第四步，创建项目</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#">!</a>
+<ul>
+<li><a href="#3%E4%BD%BF%E7%94%A8vuex%E5%AE%8C%E6%88%90%E8%AE%A1%E6%95%B0%E5%99%A8%E6%A1%88%E4%BE%8B">3.使用Vuex完成计数器案例</a></li>
+<li><a href="#4vuex%E4%B8%AD%E7%9A%84%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7">4.Vuex中的核心特性</a>
+<ul>
+<li><a href="#astate">A.State</a></li>
+<li><a href="#bmutation">B.Mutation</a></li>
+<li><a href="#caction">C.Action</a></li>
+<li><a href="#dgetter">D.Getter</a></li>
+</ul>
+</li>
+<li><a href="#5vuex%E6%A1%88%E4%BE%8B">5.vuex案例</a>
+<ul>
+<li><a href="#a%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A1%88%E4%BE%8B">A.初始化案例</a></li>
+<li><a href="#b%E5%AE%8C%E6%88%90%E6%B7%BB%E5%8A%A0%E4%BA%8B%E9%A1%B9">B.完成添加事项</a></li>
+<li><a href="#c%E5%AE%8C%E6%88%90%E5%88%A0%E9%99%A4%E4%BA%8B%E9%A1%B9">C.完成删除事项</a></li>
+<li><a href="#d%E5%AE%8C%E6%88%90%E9%80%89%E4%B8%AD%E7%8A%B6%E6%80%81%E7%9A%84%E6%94%B9%E5%8F%98">D.完成选中状态的改变</a></li>
+<li><a href="#e%E5%89%A9%E4%BD%99%E9%A1%B9%E7%BB%9F%E8%AE%A1">E.剩余项统计</a></li>
+<li><a href="#f%E6%B8%85%E9%99%A4%E5%AE%8C%E6%88%90%E4%BA%8B%E9%A1%B9">F.清除完成事项</a></li>
+<li><a href="#g%E7%82%B9%E5%87%BB%E9%80%89%E9%A1%B9%E5%8D%A1%E5%88%87%E6%8D%A2%E4%BA%8B%E9%A1%B9">G.点击选项卡切换事项</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://gitee.com/azzsds" target="_blank">AnZz</a></div>
+    <a class="rss" href="https://azzsds2008.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">VueX</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-12-05 / 14 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://azzsds2008.github.io/post-images/vuex.png" alt="">
+        
+        <div class="post-content yue">
+          <h3 id="1vuex概述">1.Vuex概述</h3>
+<p>Vuex是实现组件全局状态（数据）管理的一种机制，可以方便的实现组件之间的数据共享<br>
+<a href="https://vuex.vuejs.org/zh/api/">vuex官方文档</a></p>
+<blockquote>
+<p>使用Vuex管理数据的好处：<br>
+-A.能够在vuex中集中管理共享的数据，便于开发和后期进行维护<br>
+-B.能够高效的实现组件之间的数据共享，提高开发效率<br>
+-C.存储在vuex中的数据是响应式的，当数据发生改变时，页面中的数据也会同步更新</p>
+</blockquote>
+<hr>
+<h3 id="2vuex的基本使用">2.Vuex的基本使用</h3>
+<p>创建带有vuex的vue项目，打开终端，输入命令：vue ui<br>
+当项目仪表盘打开之后，我们点击页面左上角的项目管理下拉列表，再点击Vue项目管理器<br>
+点击创建项目，如下图所示</p>
+<h4 id="第一步设置项目名称和包管理器">第一步，设置项目名称和包管理器</h4>
+<figure data-type="image" tabindex="1"><img src="https://azzsds2008.github.io/post-images/1586873298629.png" alt="" loading="lazy"></figure>
+<h4 id="第二步设置手动配置项目">第二步，设置手动配置项目</h4>
+<figure data-type="image" tabindex="2"><img src="https://azzsds2008.github.io/post-images/1586873309281.png" alt="" loading="lazy"></figure>
+<h4 id="第三步设置功能项">第三步，设置功能项</h4>
+<p><img src="https://azzsds2008.github.io/post-images/1586873314945.png" alt="" loading="lazy"><br>
+<img src="https://azzsds2008.github.io/post-images/1586873318994.png" alt="" loading="lazy"></p>
+<h4 id="第四步创建项目">第四步，创建项目</h4>
+<h2 id=""><img src="https://azzsds2008.github.io/post-images/1586873323073.png" alt="" loading="lazy"></h2>
+<h3 id="3使用vuex完成计数器案例">3.使用Vuex完成计数器案例</h3>
+<p>打开刚刚创建的vuex项目，找到src目录中的App.vue组件，将代码重新编写如下：</p>
+<pre><code class="language-html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;my-addition&gt;&lt;/my-addition&gt;
+    &lt;p&gt;----------------------------------------&lt;/p&gt;
+    &lt;my-subtraction&gt;&lt;/my-subtraction&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import Addition from './components/Addition.vue'
+import Subtraction from './components/Subtraction.vue'
+export default {
+  data() {
+    return {}
+  },
+  components: {
+    'my-subtraction': Subtraction,
+    'my-addition': Addition
+  }
+}
+&lt;/script&gt;
+&lt;style&gt;
+&lt;/style&gt;
+</code></pre>
+<hr>
+<p>在components文件夹中创建Addition.vue组件，代码如下：</p>
+<pre><code class="language-html">&lt;template&gt;
+    &lt;div&gt;
+        &lt;h3&gt;当前最新的count值为：&lt;/h3&gt;
+        &lt;button&gt;+1&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {}
+  }
+}
+&lt;/script&gt;
+&lt;style&gt;
+&lt;/style&gt;
+</code></pre>
+<p>在components文件夹中创建Subtraction.vue组件，代码如下：</p>
+<pre><code class="language-html">&lt;template&gt;
+    &lt;div&gt;
+        &lt;h3&gt;当前最新的count值为：&lt;/h3&gt;
+        &lt;button&gt;-1&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  data() {
+    return {}
+  }
+}
+&lt;/script&gt;
+&lt;style&gt;
+&lt;/style&gt;
+</code></pre>
+<p>最后在项目根目录(与src平级)中创建 .prettierrc 文件，编写代码如下：</p>
+<pre><code class="language-javascript">{
+    &quot;semi&quot;:false,
+    &quot;singleQuote&quot;:true
+}
+</code></pre>
+<hr>
+<h3 id="4vuex中的核心特性">4.Vuex中的核心特性</h3>
+<h4 id="astate">A.State</h4>
+<pre><code>State提供唯一的公共数据源，所有共享的数据都要统一放到Store中的State中存储
+例如，打开项目中的store.js文件，在State对象中可以添加我们要共享的数据，如：count:0
+
+在组件中访问State的方式：
+1).this.$store.state.全局数据名称  如：this.$store.state.count
+2).先按需导入mapState函数： import { mapState } from 'vuex'
+然后数据映射为计算属性： computed:{ ...mapState(['全局数据名称']) }
+</code></pre>
+<h4 id="bmutation">B.Mutation</h4>
+<p>Mutation用于修改变更$store中的数据<br>
+使用方式：<br>
+打开store.js文件，在mutations中添加代码如下</p>
+<pre><code class="language-javascript">mutations: {
+    add(state,step){
+      //第一个形参永远都是state也就是$state对象
+      //第二个形参是调用add时传递的参数
+      state.count+=step;
+    }
+  }
+</code></pre>
+<hr>
+<p>然后在Addition.vue中给按钮添加事件代码如下：</p>
+<pre><code class="language-javascript">&lt;button @click=&quot;Add&quot;&gt;+1&lt;/button&gt;
+
+methods:{
+  Add(){
+    //使用commit函数调用mutations中的对应函数，
+    //第一个参数就是我们要调用的mutations中的函数名
+    //第二个参数就是传递给add函数的参数
+    this.$store.commit('add',10)
+  }
+}
+</code></pre>
+<p>使用mutations的第二种方式：<br>
+import { mapMutations } from 'vuex'</p>
+<p>methods:{<br>
+...mapMutations(['add'])<br>
+}<br>
+如下：</p>
+<pre><code class="language-javascript">import { mapState,mapMutations } from 'vuex'
+
+export default {
+  data() {
+    return {}
+  },
+  methods:{
+      //获得mapMutations映射的sub函数
+      ...mapMutations(['sub']),
+      //当点击按钮时触发Sub函数
+      Sub(){
+          //调用sub函数完成对数据的操作
+          this.sub(10);
+      }
+  },
+  computed:{
+      ...mapState(['count'])
+      
+  }
+}
+</code></pre>
+<h4 id="caction">C.Action</h4>
+<p>在mutations中不能编写异步的代码，会导致vue调试器的显示出错。<br>
+在vuex中我们可以使用Action来执行异步操作。<br>
+操作步骤如下：<br>
+打开store.js文件，修改Action，如下：</p>
+<pre><code class="language-javascript">actions: {
+  addAsync(context,step){
+    setTimeout(()=&gt;{
+      context.commit('add',step);
+    },2000)
+  }
+}
+</code></pre>
+<p>然后在Addition.vue中给按钮添加事件代码如下：</p>
+<pre><code class="language-javascript">&lt;button @click=&quot;AddAsync&quot;&gt;...+1&lt;/button&gt;
+
+methods:{
+  AddAsync(){
+    this.$store.dispatch('addAsync',5)
+  }
+}
+</code></pre>
+<hr>
+<p>第二种方式：<br>
+import { mapActions } from 'vuex'</p>
+<p>methods:{<br>
+...mapMutations(['subAsync'])<br>
+}<br>
+如下：</p>
+<pre><code class="language-javascript">import { mapState,mapMutations,mapActions } from 'vuex'
+
+export default {
+  data() {
+    return {}
+  },
+  methods:{
+      //获得mapMutations映射的sub函数
+      ...mapMutations(['sub']),
+      //当点击按钮时触发Sub函数
+      Sub(){
+          //调用sub函数完成对数据的操作
+          this.sub(10);
+      },
+      //获得mapActions映射的addAsync函数
+      ...mapActions(['subAsync']),
+      asyncSub(){
+          this.subAsync(5);
+      }
+  },
+  computed:{
+      ...mapState(['count'])
+      
+  }
+}
+</code></pre>
+<h4 id="dgetter">D.Getter</h4>
+<p>Getter用于对Store中的数据进行加工处理形成新的数据<br>
+它只会包装Store中保存的数据，并不会修改Store中保存的数据，当Store中的数据发生变化时，Getter生成的内容也会随之变化<br>
+打开store.js文件，添加getters，如下：</p>
+<pre><code class="language-javascript">export default new Vuex.Store({
+  .......
+  getters:{
+    //添加了一个showNum的属性
+    showNum : state =&gt;{
+      return '最新的count值为：'+state.count;
+    }
+  }
+})
+</code></pre>
+<p>然后打开Addition.vue中，添加插值表达式使用getters</p>
+<pre><code class="language-html">&lt;h3&gt;{{$store.getters.showNum}}&lt;/h3&gt;
+</code></pre>
+<p>或者也可以在Addition.vue中，导入mapGetters，并将之映射为计算属性</p>
+<pre><code class="language-javascript">import { mapGetters } from 'vuex'
+computed:{
+  ...mapGetters(['showNum'])
+}
+</code></pre>
+<hr>
+<h3 id="5vuex案例">5.vuex案例</h3>
+<h4 id="a初始化案例">A.初始化案例</h4>
+<p>首先使用vue ui初始化一个使用vuex的案例<br>
+然后打开public文件夹，创建一个list.json文件，文件代码如下：</p>
+<pre><code class="language-javascript">[
+    {
+        &quot;id&quot;: 0,
+        &quot;info&quot;: &quot;Racing car sprays burning fuel into crowd.&quot;,
+        &quot;done&quot;: false
+    },
+    {
+        &quot;id&quot;: 1,
+        &quot;info&quot;: &quot;Japanese princess to wed commoner.&quot;,
+        &quot;done&quot;: false
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;info&quot;: &quot;Australian walks 100km after outback crash.&quot;,
+        &quot;done&quot;: false
+    },
+    {
+        &quot;id&quot;: 3,
+        &quot;info&quot;: &quot;Man charged over missing wedding girl.&quot;,
+        &quot;done&quot;: false
+    },
+    {
+        &quot;id&quot;: 4,
+        &quot;info&quot;: &quot;Los Angeles battles huge wildfires.&quot;,
+        &quot;done&quot;: false
+    }
+]
+</code></pre>
+<p>再接着，打开main.js,添加store.js的引入，如下：</p>
+<pre><code class="language-javascript">import Vue from 'vue'
+import App from './App.vue'
+import store from './store.js'
+
+// 1. 导入 ant-design-vue 组件库
+import Antd from 'ant-design-vue'
+// 2. 导入组件库的样式表
+import 'ant-design-vue/dist/antd.css'
+
+Vue.config.productionTip = false
+// 3. 安装组件库
+Vue.use(Antd)
+
+new Vue({
+  store,
+  render: h =&gt; h(App)
+}).$mount('#app')
+</code></pre>
+<p>再接着打开store.js，添加axios请求json文件获取数据的代码，如下：</p>
+<pre><code class="language-javascript">import Vue from 'vue'
+import Vuex from 'vuex'
+import axios from 'axios'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  state: {
+    //所有任务列表
+    list: [],
+    //文本输入框中的值
+    inputValue: 'AAA'
+  },
+  mutations: {
+    initList(state, list) {
+      state.list = list
+    },
+    setInputValue(state,value){
+      state.inputValue = value
+    }
+  },
+  actions: {
+    getList(context) {
+      axios.get('/list.json').then(({ data }) =&gt; {
+        console.log(data);
+        context.commit('initList', data)
+      })
+    }
+  }
+})
+</code></pre>
+<p>最后，代开App.vue文件，将store中的数据获取并展示：</p>
+<pre><code class="language-html">&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;a-input placeholder=&quot;请输入任务&quot; class=&quot;my_ipt&quot; :value=&quot;inputValue&quot; @change=&quot;handleInputChange&quot; /&gt;
+    &lt;a-button type=&quot;primary&quot;&gt;添加事项&lt;/a-button&gt;
+
+    &lt;a-list bordered :dataSource=&quot;list&quot; class=&quot;dt_list&quot;&gt;
+      &lt;a-list-item slot=&quot;renderItem&quot; slot-scope=&quot;item&quot;&gt;
+        &lt;!-- 复选框 --&gt;
+        &lt;a-checkbox :checked=&quot;item.done&quot;&gt;{{item.info}}&lt;/a-checkbox&gt;
+        &lt;!-- 删除链接 --&gt;
+        &lt;a slot=&quot;actions&quot;&gt;删除&lt;/a&gt;
+      &lt;/a-list-item&gt;
+
+      &lt;!-- footer区域 --&gt;
+      &lt;div slot=&quot;footer&quot; class=&quot;footer&quot;&gt;
+        &lt;!-- 未完成的任务个数 --&gt;
+        &lt;span&gt;0条剩余&lt;/span&gt;
+        &lt;!-- 操作按钮 --&gt;
+        &lt;a-button-group&gt;
+          &lt;a-button type=&quot;primary&quot;&gt;全部&lt;/a-button&gt;
+          &lt;a-button&gt;未完成&lt;/a-button&gt;
+          &lt;a-button&gt;已完成&lt;/a-button&gt;
+        &lt;/a-button-group&gt;
+        &lt;!-- 把已经完成的任务清空 --&gt;
+        &lt;a&gt;清除已完成&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/a-list&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import { mapState } from 'vuex'
+
+export default {
+  name: 'app',
+  data() {
+    return {
+      // list:[]
+    }
+  },
+  created(){
+    // console.log(this.$store);
+    this.$store.dispatch('getList')
+  },
+  methods:{
+    handleInputChange(e){
+      // console.log(e.target.value)
+      this.$store.commit('setInputValue',e.target.value)
+    }
+  },
+  computed:{
+    ...mapState(['list','inputValue'])
+  }
+}
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+#app {
+  padding: 10px;
+}
+
+.my_ipt {
+  width: 500px;
+  margin-right: 10px;
+}
+
+.dt_list {
+  width: 500px;
+  margin-top: 10px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+&lt;/style&gt;
+</code></pre>
+<h4 id="b完成添加事项">B.完成添加事项</h4>
+<p>首先，打开App.vue文件，给“添加事项”按钮绑定点击事件，编写处理函数</p>
+<pre><code class="language-javascript">//绑定事件
+&lt;a-button type=&quot;primary&quot; @click=&quot;addItemToList&quot;&gt;添加事项&lt;/a-button&gt;
+
+//编写事件处理函数
+methods:{
+    ......
+    addItemToList(){
+      //向列表中新增事项
+      if(this.inputValue.trim().length &lt;= 0){
+        return this.$message.warning('文本框内容不能为空')
+      }
+
+      this.$store.commit('addItem')
+    }
+  }
+</code></pre>
+<p>然后打开store.js编写addItem</p>
+<pre><code class="language-javascript">export default new Vuex.Store({
+  state: {
+    //所有任务列表
+    list: [],
+    //文本输入框中的值
+    inputValue: 'AAA',
+    //下一个id
+    nextId:5
+  },
+  mutations: {
+    ........
+    //添加列表项
+    addItem(state){
+      const obj = {
+        id :state.nextId,
+        info: state.inputValue.trim(),
+        done:false
+      }
+      //将创建好的事项添加到数组list中
+      state.list.push(obj)
+      //将nextId值自增
+      state.nextId++
+      state.inputValue = ''
+    }
+  }
+  ......
+})
+
+</code></pre>
+<h4 id="c完成删除事项">C.完成删除事项</h4>
+<p>首先，打开App.vue文件，给“删除”按钮绑定点击事件，编写处理函数</p>
+<pre><code class="language-javascript">//绑定事件
+&lt;a slot=&quot;actions&quot; @click=&quot;removeItemById(item.id)&quot;&gt;删除&lt;/a&gt;
+
+//编写事件处理函数
+methods:{
+    ......
+    removeItemById(id){
+      //根据id删除事项
+      this.$store.commit('removeItem',id)
+    }
+  }
+</code></pre>
+<p>然后打开store.js编写addItem</p>
+<pre><code class="language-javascript">export default new Vuex.Store({
+  ......
+  mutations: {
+    ........
+    removeItem(state,id){
+      //根据id删除事项数据
+      const index = state.list.findIndex( x =&gt; x.id === id )
+      // console.log(index);
+      if(index != -1) state.list.splice(index,1);
+    }
+  }
+  ......
+})
+</code></pre>
+<hr>
+<h4 id="d完成选中状态的改变">D.完成选中状态的改变</h4>
+<p>首先，打开App.vue文件，给“复选”按钮绑定点击事件，编写处理函数</p>
+<pre><code class="language-javascript">//绑定事件
+&lt;a-checkbox :checked=&quot;item.done&quot; @change=&quot;cbStateChanged(item.id,$event)&quot;&gt;{{item.info}}&lt;/a-checkbox&gt;
+
+//编写事件处理函数
+methods:{
+    ......
+    cbStateChanged(id,e){
+      //复选框状态改变时触发
+      const param = {
+        id:id,
+        status:e.target.checked
+      }
+
+      //根据id更改事项状态
+      this.$store.commit('changeStatus',param)
+    }
+  }
+</code></pre>
+<hr>
+<p>然后打开store.js编写addItem</p>
+<pre><code class="language-javascript">export default new Vuex.Store({
+  ......
+  mutations: {
+    ........
+    changeStatus(state,param){
+      //根据id改变对应事项的状态
+      const index = state.list.findIndex( x =&gt; x.id === param.id )
+      if(index != -1) state.list[index].done = param.status
+    }
+  }
+  ......
+})
+</code></pre>
+<h4 id="e剩余项统计">E.剩余项统计</h4>
+<p>打开store.js，添加getters完成剩余项统计</p>
+<pre><code class="language-javascript">getters:{
+  unDoneLength(state){
+    const temp = state.list.filter( x =&gt; x.done === false )
+    console.log(temp)
+    return temp.length
+  }
+}
+</code></pre>
+<hr>
+<p>打开App.vue，使用getters展示剩余项</p>
+<pre><code class="language-javascript">//使用映射好的计算属性展示剩余项
+&lt;!-- 未完成的任务个数 --&gt;
+&lt;span&gt;{{unDoneLength}}条剩余&lt;/span&gt;
+
+//导入getters
+import { mapState,mapGetters } from 'vuex'
+//映射
+computed:{
+  ...mapState(['list','inputValue']),
+  ...mapGetters(['unDoneLength'])
+}
+</code></pre>
+<hr>
+<h4 id="f清除完成事项">F.清除完成事项</h4>
+<p>首先，打开App.vue文件，给“清除已完成”按钮绑定点击事件，编写处理函数</p>
+<pre><code class="language-javascript">&lt;!-- 把已经完成的任务清空 --&gt;
+&lt;a @click=&quot;clean&quot;&gt;清除已完成&lt;/a&gt;
+
+//编写事件处理函数
+methods:{
+  ......
+  clean(){
+    //清除已经完成的事项
+    this.$store.commit('cleanDone')
+  }
+}
+</code></pre>
+<hr>
+<p>然后打开store.js编写addItem</p>
+<pre><code class="language-javascript">export default new Vuex.Store({
+  ......
+  mutations: {
+    ........
+    cleanDone(state){
+      state.list = state.list.filter( x =&gt; x.done === false )
+    }
+  }
+  ......
+})
+</code></pre>
+<hr>
+<h4 id="g点击选项卡切换事项">G.点击选项卡切换事项</h4>
+<p>打开App.vue，给“全部”，“未完成”，“已完成”三个选项卡绑定点击事件，编写处理函数<br>
+并将列表数据来源更改为一个getters。</p>
+<pre><code class="language-html">&lt;a-list bordered :dataSource=&quot;infoList&quot; class=&quot;dt_list&quot;&gt;
+  ......
+  &lt;!-- 操作按钮 --&gt;
+  &lt;a-button-group&gt;
+    &lt;a-button :type=&quot;viewKey ==='all'?'primary':'default'&quot; @click=&quot;changeList('all')&quot;&gt;全部&lt;/a-button&gt;
+    &lt;a-button :type=&quot;viewKey ==='undone'?'primary':'default'&quot; @click=&quot;changeList('undone')&quot;&gt;未完成&lt;/a-button&gt;
+    &lt;a-button :type=&quot;viewKey ==='done'?'primary':'default'&quot; @click=&quot;changeList('done')&quot;&gt;已完成&lt;/a-button&gt;
+  &lt;/a-button-group&gt;
+  ......
+&lt;/a-list&gt;
+
+//编写事件处理函数以及映射计算属性
+methods:{
+  ......
+  changeList( key ){
+    //点击“全部”，“已完成”，“未完成”时触发
+    this.$store.commit('changeKey',key)
+  }
+},
+computed:{
+  ...mapState(['list','inputValue','viewKey']),
+  ...mapGetters(['unDoneLength','infoList'])
+}
+</code></pre>
+<hr>
+<p>打开store.js，添加getters，mutations，state</p>
+<pre><code class="language-javascript">export default new Vuex.Store({
+  state: {
+    ......
+    //保存默认的选项卡值
+    viewKey:'all'
+  },
+  mutations: {
+    ......
+    changeKey(state,key){
+      //当用户点击“全部”，“已完成”，“未完成”选项卡时触发
+      state.viewKey = key
+    }
+  },
+  ......
+  getters:{
+    .......
+    infoList(state){
+      if(state.viewKey === 'all'){
+        return state.list
+      }
+      if(state.viewKey === 'undone'){
+        return state.list.filter( x =&gt; x.done === false )
+      }
+      if(state.viewKey === 'done'){
+        return state.list.filter( x =&gt; x.done === true )
+      }
+    }
+  }
+})
+</code></pre>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://azzsds2008.github.io/tag/8n-dM5FDY/">
+            <span class="flex-auto">vue</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://azzsds2008.github.io/post/vue-xiang-mu-you-hua-er/">
+                <h3 class="post-title">
+                  Vue项目优化(二)
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://azzsds2008.github.io/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
