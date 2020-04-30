@@ -30,30 +30,17 @@
       
         <div class="animated fadeInLeft" style="animation-delay: 0.4s">
           <p class="my-4 text-gray-600 font-light hidden lg:block">
-            风袖翩翩此何处<br/>青林西北雨来时
+            文章目录
           </p>
-          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#rem-%E9%80%82%E9%85%8D">Rem 适配</a>
+<ul>
+<li><a href="#postcss-%E9%85%8D%E7%BD%AE">PostCSS 配置</a></li>
+</ul>
+</li>
+</ul>
+
           </div>
         </div>
       
@@ -97,38 +84,97 @@
 </div>
 <div class="mask" onclick="closeMenu()">
 </div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
-        <h2 class="text-lg text-gray-700 mb-8">
-          <i class="ri-bookmark-2-line"></i> 标签云
-        </h2>
-        <div class="tags-container">
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">使用postcss-pxtorem转化 Rem</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-01-15 / 2 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h1 id="rem-适配">Rem 适配</h1>
+<p>Vant 中的样式默认使用px作为单位，如果需要使用rem单位，推荐使用以下两个工具：</p>
+<ul>
+<li>postcss-pxtorem 是一款 postcss 插件，用于将单位转化为 rem</li>
+<li>lib-flexible 用于设置 rem 基准值</li>
+</ul>
+<hr>
+<h2 id="postcss-配置">PostCSS 配置</h2>
+<p>在安装postcss-pxtorem的时候会生成一个文件.postcssrc.js<br>
+下面提供了一份基本的 postcss 配置，可以在此配置的基础上根据项目需求进行修改</p>
+<pre><code class="language-js">module.exports = {
+  plugins: {
+    autoprefixer: {
+      browsers: ['Android &gt;= 4.0', 'iOS &gt;= 8'],
+    },
+    'postcss-pxtorem': {
+      rootValue: 37.5,
+      propList: ['*'],
+    },
+  },
+};
+</code></pre>
+<hr>
+<p>当配置完之后，只需要重启下服务，就自动转化为rem了</p>
+<pre><code>npm run dev
+</code></pre>
+<blockquote>
+<p>注意：在配置 postcss-loader 时，应避免 ignore node_modules 目录，这会导致 Vant 的样&gt; 式无法被编译</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>注意：rootValue这个配置项的数值,通常我们是根据设计图来定这个值，原因很简单，便于开发。<br>
+假如设计图给的宽度是750，我们通常就会把rootValue设置为75，这样我们写样式时，可以直接按照设&gt; 计图标注的宽高来1:1还原开发。<br>
+（iPhone界面尺寸：320 * 480、640 * 960、640 * 1136、750 * 1334、1080 * 1920等。）</p>
+</blockquote>
+<p>为什么这里写成了37.5?<br>
+是为了引用像vant、mint-ui这样的第三方UI框架，因为第三方框架没有兼容rem，用的是px单位，将rootValue的值设置为设计图宽度（这里为750px）75的一半，即可以1:1还原vant、mint-ui的组件，否则会样式会有变化，例如按钮会变小。</p>
+<p>lib-flexible和postcss-pxtorem搭配，因为lib-flexible和postcss-pxtorem里面有一个过滤功能，可以让我们过滤掉以van开头的样式：在引入的postcssrc.js里面设置：</p>
+<pre><code class="language-js">module.exports={
+　　plugins:{
+　　　　'postcss-pxtorem':{
+　　　　　　rootValue:37.5,
+　　　　　　propList:['*'],
+　　　　　　selectorBlackList:['van']
+　　　　}
+　　}
+}
+</code></pre>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://azzsds2008.github.io/tag/rn1CNQ8a5/">
+            <span class="flex-auto">css</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
           
-            <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://azzsds2008.github.io/tag/rn1CNQ8a5/" :style="{ 'animation-delay': `${0 * 0.2}s` }">
-              <span class="flex-auto">css</span>
-              <span class="flex rounded-full bg-gray-200 px-2 py-1 text-xs ml-1">3</span>
-            </a>
+            <div class="prev-post">
+              <a href="https://azzsds2008.github.io/post/qian-duan-js-xiang-mu-kai-fa-gui-fan/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  前端 JS 项目开发规范
+                </h3>
+              </a>
+            </div>
           
-            <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://azzsds2008.github.io/tag/yFCMYbbem/" :style="{ 'animation-delay': `${1 * 0.2}s` }">
-              <span class="flex-auto">规范</span>
-              <span class="flex rounded-full bg-gray-200 px-2 py-1 text-xs ml-1">1</span>
-            </a>
+
           
-            <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://azzsds2008.github.io/tag/_jmU8gmSi/" :style="{ 'animation-delay': `${2 * 0.2}s` }">
-              <span class="flex-auto">HTML</span>
-              <span class="flex rounded-full bg-gray-200 px-2 py-1 text-xs ml-1">1</span>
-            </a>
-          
-            <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://azzsds2008.github.io/tag/3nfTo_4rW/" :style="{ 'animation-delay': `${3 * 0.2}s` }">
-              <span class="flex-auto">小程序</span>
-              <span class="flex rounded-full bg-gray-200 px-2 py-1 text-xs ml-1">1</span>
-            </a>
-          
-            <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://azzsds2008.github.io/tag/8n-dM5FDY/" :style="{ 'animation-delay': `${4 * 0.2}s` }">
-              <span class="flex-auto">vue</span>
-              <span class="flex rounded-full bg-gray-200 px-2 py-1 text-xs ml-1">4</span>
-            </a>
+            <div class="next-post">
+              <a href="https://azzsds2008.github.io/post/wang-zhan-tdk-biao-qian-seo-you-hua/">
+                <h3 class="post-title">
+                  网站TDK标签SEO优化
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
           
         </div>
+
+        
+
       </div>
     </div>
 

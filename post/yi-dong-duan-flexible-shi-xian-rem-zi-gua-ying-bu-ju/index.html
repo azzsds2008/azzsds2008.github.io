@@ -34,12 +34,26 @@
           </p>
           <div class="toc-container hidden lg:block">
             <ul class="markdownIt-TOC">
-<li>
+<li><a href="#rem">REM</a></li>
+<li><a href="#flexible">flexible</a>
 <ul>
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站</a></li>
-<li><a href="#%E5%8D%9A%E4%B8%BB%E6%98%AF%E8%B0%81">👨‍💻 博主是谁</a></li>
-<li><a href="#%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD">⛹ 兴趣爱好</a></li>
-<li><a href="#%E8%81%94%E7%B3%BB%E6%88%91%E5%91%80">📬 联系我呀</a></li>
+<li><a href="#%E5%8E%9F%E7%90%86">原理</a></li>
+<li><a href="#flexible-2">flexible</a></li>
+<li><a href="#github">github</a></li>
+<li><a href="#%E5%9C%A8vue%E4%B8%AD">在vue中</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85-lib-flexible">安装 lib-flexible</a></li>
+<li><a href="#%E8%A7%86%E5%8F%A3%E9%85%8D%E7%BD%AE">视口配置</a></li>
+<li><a href="#%E5%BC%95%E5%85%A5-lib-flexible">引入 lib-flexible</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85-px2rem-loader">安装 px2rem-loader</a></li>
+</ul>
+</li>
+<li><a href="#flexible%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F">flexible使用注意</a>
+<ul>
+<li><a href="#%E5%85%B3%E4%BA%8Epx2rem%E7%9A%84%E5%86%99%E6%B3%95">关于px2rem的写法:</a></li>
+<li><a href="#%E6%9C%80%E5%A4%A7%E5%B0%BA%E5%AF%B8%E8%AE%BE%E7%BD%AE">最大尺寸设置</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -88,28 +102,136 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">关于</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">移动端flexible实现rem自适应布局</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2019-01-25 / 1 min read
+          2019-12-24 / 3 min read
         </div>
         
         <div class="post-content yue">
-          <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
+          <h1 id="rem">REM</h1>
+<p>rem是一个相对单位<br>
+rem的基准是相对于 html 元素的字体大小<br>
+比如，根元素html设置font-size=12px, 非根元素设置width:2rem 则换算成px就是24px</p>
+<h1 id="flexible">flexible</h1>
+<h2 id="原理">原理</h2>
+<p>结合CSS3的媒体查询（@media）可以针对不同媒体类型，定义不同的样式</p>
+<blockquote>
+<p>@media 可以针对不同屏幕尺寸设置不同的样式<br>
+改变浏览器大小的过程中，页面会根据浏览器的宽高重新渲染页面<br>
+例如（假设设计稿540px 把屏幕划分10等分，实现不同屏幕下，元素等比例缩放）</p>
 </blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<h2 id="联系我呀">📬 联系我呀</h2>
+<pre><code class="language-javascript">@media screen and (min-width: 320px) {
+    html {
+        font-size: 32px;
+    }
+}
+@media screen and (min-width: 540px) {
+    html {
+        font-size: 54px;
+    }
+}
+</code></pre>
+<hr>
+<h2 id="flexible-2">flexible</h2>
+<p>手机淘宝的移动端适配库<br>
+它的原理就是把当前设备划分为10等份，在不同设备下，比例是一致的<br>
+我们只需要根据设计稿大小设置页面根元素px值</p>
+<h2 id="github"><a href="https://github.com/amfe/lib-flexible">github</a></h2>
+<hr>
+<h2 id="在vue中">在vue中</h2>
+<p>一般而言，lib-flexible并不独立出现，而是搭配px2rem-loader一起做适配方案，目的是自动将css中的px转换成rem。以下为它在vue中的使用。</p>
+<h3 id="安装-lib-flexible">安装 lib-flexible</h3>
+<pre><code>npm install lib-flexible --save-dev
+</code></pre>
+<h3 id="视口配置">视口配置</h3>
+<pre><code class="language-html">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1.0,maximum=scale=1.0&quot;&gt;
+</code></pre>
+<h3 id="引入-lib-flexible">引入 lib-flexible</h3>
+<p>在项目入口文件main.js中引入lib-flexible</p>
+<pre><code>import 'lib-flexible'
+</code></pre>
+<h3 id="安装-px2rem-loader">安装 px2rem-loader</h3>
+<pre><code>npm install postcss-px2rem-exclude --save
+</code></pre>
+<p>在项目根目录文件vue.config.js，如下配置：</p>
+<pre><code class="language-js">module.exports = {
+  &quot;plugins&quot;: {
+    &quot;postcss-import&quot;: {},
+    &quot;postcss-url&quot;: {},
+    // to edit target browsers: use &quot;browserslist&quot; field in package.json
+    &quot;autoprefixer&quot;: {},
+    'postcss-px2rem-exclude': {
+      remUnit: 75,
+      exclude: /node_modules|folder_name/i
+    }
+  }
+</code></pre>
+<h2 id="flexible使用注意">flexible使用注意</h2>
+<h3 id="关于px2rem的写法">关于px2rem的写法:</h3>
+<blockquote>
+<p>直接写px，编译后会直接转化成rem ---- 除开下面两种情况，其他长度用这个<br>
+在px后面添加/<em>no</em>/，不会转化px，会原样输出。 --- 一般border需用这个<br>
+在px后面添加/<em>px</em>/,会根据dpr的不同，生成三套代码。---- 一般字体需用这个</p>
+</blockquote>
+<h3 id="最大尺寸设置">最大尺寸设置</h3>
+<p>flexible的效果会在html 头部设置这样的格式 ：<html data-dpr="1" style="font-size:37.5px;"><head><br>
+最大是54px,是因为flexible的js 中的设置<br>
+改成750,这样就能 适应750的设计稿了。</p>
+<pre><code class="language-javascript"> function refreshRem(){
+     var width = docEl.getBoundingClientRect().width;
+     if (width / dpr &gt; 750) {	//默认html字体大小（font-size)是54px
+         width = 750 * dpr;
+     }
+     var rem = width / 10;
+     docEl.style.fontSize = rem + 'px';
+     flexible.rem = win.rem = rem;
+ }
+</code></pre>
+<p>大屏适配可改大，例如我们屏幕尺寸要做以3840 x 2160为设计稿的适配，<br>
+要求最小范围是1980，最大为5760，那么我们要修改的则变为：</p>
+<pre><code class="language-js">function refreshRem(){
+    var width = docEl.getBoundingClientRect().width;
+    if (width / dpr &lt; 1980) {
+        width = 1980 * dpr;
+    } else if (width / dpr &gt; 5760) {
+        width = 5760 * dpr;
+    }
+    var rem = width / 10;
+    docEl.style.fontSize = rem + 'px';
+    flexible.rem = win.rem = rem;
+}
+</code></pre>
 
         </div>
 
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://azzsds2008.github.io/tag/rn1CNQ8a5/">
+            <span class="flex-auto">css</span>
+          </a>
         
 
 
         <div class="flex justify-between py-8">
           
+            <div class="prev-post">
+              <a href="https://azzsds2008.github.io/post/xiao-cheng-xu-lian-bu-shi-bie/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  小程序,脸部识别
+                </h3>
+              </a>
+            </div>
+          
 
+          
+            <div class="next-post">
+              <a href="https://azzsds2008.github.io/post/vue-jie-jue-kua-yu-wen-ti/">
+                <h3 class="post-title">
+                  Vue 解决跨域问题
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
           
         </div>
 
